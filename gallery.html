@@ -14,8 +14,8 @@
       color: #222;
     }
     header {
-      background: linear-gradient(90deg, #232526 0%, #414345 100%);
-      color: #fff;
+      background: linear-gradient(90deg, #ffb347 0%, #ffcc33 50%, #ff5e62 100%);
+      color: #a14a00;
       padding: 2rem 0 1rem 0;
       text-align: center;
       box-shadow: 0 2px 8px rgba(0,0,0,0.05);
@@ -96,46 +96,8 @@
     </section>
   </main>
 
-  <footer>
-    <p>&copy; 2025 Photo Gallery</p>
-  </footer>
-  <script>
-    fetch('images/images.json')
-      .then(response => response.json())
-      .then(images => {
-        const gallery = document.getElementById('gallery');
-        let lastType = null;
-        images.forEach((img, i) => {
-          const el = document.createElement('img');
-          el.src = `images/${img}`;
-          el.alt = `Photo ${i + 1}`;
-          el.onload = function() {
-            const type = el.naturalWidth > el.naturalHeight ? 'landscape' : 'portrait';
-            el.classList.add(type);
-            // Add a break between groups
-            if (lastType && lastType !== type) {
-              const divider = document.createElement('div');
-              divider.className = 'orientation-break';
-              gallery.appendChild(divider);
-            }
-            lastType = type;
-          };
-          gallery.appendChild(el);
-        });
-      });
-  </script>
-  <style>
-    .gallery-grid img.portrait {
-      border: 3px solid #ffd700;
-    }
-    .gallery-grid img.landscape {
-      border: 3px solid #232526;
-    }
-    .orientation-break {
-      grid-column: 1 / -1;
-      height: 2rem;
-      background: transparent;
-    }
-  </style>
+<footer>
+  <p>&copy; 2025 Photo Gallery</p>
+</footer>
 </body>
 </html>
