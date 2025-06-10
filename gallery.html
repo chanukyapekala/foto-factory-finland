@@ -3,7 +3,82 @@
 <head>
   <meta charset="UTF-8">
   <title>Photo Gallery</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:700,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
+  <style>
+    body {
+      font-family: 'Montserrat', Arial, sans-serif;
+      margin: 0;
+      background: #f7f7f7;
+      color: #222;
+    }
+    header {
+      background: linear-gradient(90deg, #232526 0%, #414345 100%);
+      color: #fff;
+      padding: 2rem 0 1rem 0;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    nav {
+      margin-top: 1rem;
+    }
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      margin: 0 1.5rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      transition: color 0.2s;
+    }
+    nav a:hover {
+      color: #ffd700;
+    }
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2rem 1rem 2rem 1rem;
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    .gallery-grid img {
+      width: 100%;
+      border-radius: 1rem;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.12);
+      transition: transform 0.3s;
+      background: #fff;
+    }
+    .gallery-grid img:hover {
+      transform: scale(1.04);
+    }
+    h1 {
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+    footer {
+      text-align: center;
+      padding: 1.5rem 0;
+      background: #232526;
+      color: #fff;
+      margin-top: 2rem;
+      border-radius: 1rem 1rem 0 0;
+    }
+    @media (max-width: 600px) {
+      nav a {
+        margin: 0 0.5rem;
+      }
+      main {
+        padding: 1rem;
+      }
+      .gallery-grid {
+        gap: 0.75rem;
+      }
+    }
+  </style>
 </head>
 <body>
   <header>
@@ -14,14 +89,53 @@
     </nav>
   </header>
 
-  <main class="gallery">
-    <img src="images/P1211125.jpg" alt="Photo 1">
-    <img src="images/P1211723.jpg" alt="Photo 2">
-    <img src="images/P1211756.jpg" alt="Photo 3">
+  <main>
+    <section>
+      <h2>All Photos</h2>
+      <div class="gallery-grid" id="gallery"></div>
+    </section>
   </main>
 
   <footer>
-    <p>© 2025 Photo Gallery</p>
+    <p>&copy; 2025 Photo Gallery</p>
   </footer>
+  <script>
+    fetch('images/images.json')
+      .then(response => response.json())
+      .then(images => {
+        const gallery = document.getElementById('gallery');
+        let lastType = null;
+        images.forEach((img, i) => {
+          const el = document.createElement('img');
+          el.src = `images/${img}`;
+          el.alt = `Photo ${i + 1}`;
+          el.onload = function() {
+            const type = el.naturalWidth > el.naturalHeight ? 'landscape' : 'portrait';
+            el.classList.add(type);
+            // Add a break between groups
+            if (lastType && lastType !== type) {
+              const divider = document.createElement('div');
+              divider.className = 'orientation-break';
+              gallery.appendChild(divider);
+            }
+            lastType = type;
+          };
+          gallery.appendChild(el);
+        });
+      });
+  </script>
+  <style>
+    .gallery-grid img.portrait {
+      border: 3px solid #ffd700;
+    }
+    .gallery-grid img.landscape {
+      border: 3px solid #232526;
+    }
+    .orientation-break {
+      grid-column: 1 / -1;
+      height: 2rem;
+      background: transparent;
+    }
+  </style>
 </body>
 </html>

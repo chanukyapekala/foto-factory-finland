@@ -3,11 +3,96 @@
 <head>
   <meta charset="UTF-8">
   <title>Welcome to Our Photo Gallery</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:700,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
+  <style>
+    body {
+      font-family: 'Montserrat', Arial, sans-serif;
+      margin: 0;
+      background: #f7f7f7;
+      color: #222;
+    }
+    header {
+      background: linear-gradient(90deg, #232526 0%, #414345 100%);
+      color: #fff;
+      padding: 2rem 0 1rem 0;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    nav {
+      margin-top: 1rem;
+    }
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      margin: 0 1.5rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      transition: color 0.2s;
+    }
+    nav a:hover {
+      color: #ffd700;
+    }
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: #fff;
+      padding: 2rem 1rem;
+      margin: 2rem auto;
+      border-radius: 1rem;
+      max-width: 700px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+    }
+    .featured {
+      width: 100%;
+      max-width: 500px;
+      border-radius: 1rem;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.12);
+      margin: 1.5rem 0;
+      transition: transform 0.3s;
+    }
+    .featured:hover {
+      transform: scale(1.03);
+    }
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 1rem 2rem 1rem;
+    }
+    section {
+      background: #fff;
+      margin: 2rem 0;
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+    }
+    h1, h2 {
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+    footer {
+      text-align: center;
+      padding: 1.5rem 0;
+      background: #232526;
+      color: #fff;
+      margin-top: 2rem;
+      border-radius: 1rem 1rem 0 0;
+    }
+    @media (max-width: 600px) {
+      .hero, section {
+        padding: 1rem;
+      }
+      nav a {
+        margin: 0 0.5rem;
+      }
+    }
+  </style>
 </head>
 <body>
   <header>
-    <h1>Welcome to Our Photo Gallery</h1>
+    <h1>Welcome to Foto Factory Finland!</h1>
     <nav>
       <a href="index.html">Home</a>
       <a href="gallery.html">Gallery</a>
@@ -15,24 +100,25 @@
   </header>
 
   <main>
-    <section>
+    <div class="hero">
       <h2>Featured Photo</h2>
-      <img src="images/featured.jpg" alt="Featured" class="featured">
-    </section>
+      <img src="images/featured_no.jpg" alt="Featured" class="featured">
+      <p>Discover breathtaking moments captured by our talented photographers.</p>
+    </div>
     <section>
       <h2>Meet the Photographers</h2>
-      <p><strong>Photographer 1:</strong> Chanukya Pekala</p>
-      <p><strong>Photographer 2:</strong> Ram Vemuri</p>
+      <p><strong>Chanukya Pekala</strong></p>
+      <p><strong>Ram Vemuri</strong></p>
     </section>
     <section>
       <h2>Contact</h2>
-      <p>Email: ramasarma.vemuri@gmail.com</p>
-      <p>Instagram: @fotofactory.finland</p>
+      <p>Email: <a href="mailto:ramasarma.vemuri@gmail.com">ramasarma.vemuri@gmail.com</a></p>
+      <p>Instagram: <a href="https://instagram.com/fotofactory.finland" target="_blank">@fotofactory.finland</a></p>
     </section>
   </main>
 
   <footer>
-    <p>© 2025 Photo Gallery</p>
+    <p>&copy; 2025 Photo Gallery</p>
   </footer>
 </body>
 </html>
