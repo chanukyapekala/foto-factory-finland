@@ -51,6 +51,7 @@
       box-shadow: 0 2px 16px rgba(0,0,0,0.12);
       transition: transform 0.3s;
       background: #fff;
+      cursor: pointer;
     }
     .gallery-grid img:hover {
       transform: scale(1.04);
@@ -62,10 +63,41 @@
     footer {
       text-align: center;
       padding: 1.5rem 0;
-      background: #232526;
-      color: #fff;
+      background: #ffb347;
+      color: #a14a00;
       margin-top: 2rem;
       border-radius: 1rem 1rem 0 0;
+    }
+    /* Modal styles */
+    #modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0,0,0,0.85);
+      justify-content: center;
+      align-items: center;
+    }
+    #modal img {
+      max-width: 90vw;
+      max-height: 90vh;
+      border-radius: 1.5rem;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.22);
+      background: #fff;
+    }
+    #close-modal {
+      position: absolute;
+      top: 2rem;
+      right: 3rem;
+      color: #fff;
+      font-size: 3rem;
+      font-weight: bold;
+      cursor: pointer;
+      z-index: 1001;
+      text-shadow: 0 2px 8px #000;
     }
     @media (max-width: 600px) {
       nav a {
@@ -76,6 +108,11 @@
       }
       .gallery-grid {
         gap: 0.75rem;
+      }
+      #close-modal {
+        top: 1rem;
+        right: 1.5rem;
+        font-size: 2rem;
       }
     }
   </style>
@@ -96,8 +133,51 @@
     </section>
   </main>
 
-<footer>
-  <p>&copy; 2025 Photo Gallery</p>
-</footer>
+  <footer>
+    <p>&copy; 2025 Photo Gallery</p>
+  </footer>
+
+  <!-- Modal for fullscreen image -->
+  <div id="modal">
+    <span id="close-modal">&times;</span>
+    <img id="modal-img" src="" alt="Gallery Large">
+  </div>
+  <script>
+    // Fetch image filenames from images/images.json and display them
+    fetch('images/images.json')
+      .then(res => res.json())
+      .then(images => {
+        const gallery = document.getElementById('gallery');
+        images.forEach((filename, idx) => {
+          const img = document.createElement('img');
+          img.src = `images/${filename}`;
+          img.alt = `Gallery Photo ${idx + 1}`;
+          img.className = 'gallery-img';
+          gallery.appendChild(img);
+        });
+      });
+
+    // Modal logic
+    const gallery = document.getElementById('gallery');
+    const modal = document.getElementById('modal');
+    const modalImg = document.getElementById('modal-img');
+    const closeModal = document.getElementById('close-modal');
+
+    gallery.addEventListener('click', function(e) {
+      if (e.target.classList.contains('gallery-img')) {
+        modal.style.display = 'flex';
+        modalImg.src = e.target.src;
+        modalImg.alt = e.target.alt;
+      }
+    });
+
+    closeModal.onclick = function() {
+      modal.style.display = 'none';
+    };
+
+    modal.onclick = function(e) {
+      if (e.target === modal) modal.style.display = 'none';
+    };
+  </script>
 </body>
 </html>
